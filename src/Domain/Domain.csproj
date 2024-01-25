@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- TODO: inspect the block code below -->
+  <!-- start block code -->
+  <PropertyGroup>
+    <RootNamespace>Sample2.Domain</RootNamespace>
+    <AssemblyName>Sample2.Domain</AssemblyName>
+  </PropertyGroup>
+  <!-- end block code -->
+
+  <ItemGroup>
+    <PackageReference Include="MediatR">
+      <Version>12.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
