@@ -9,11 +9,11 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    public DbSet<ProductItem> ProductItems => Set<ProductItem>();
+    public DbSet<Order> Orders => Set<Order>();
 
-    public DbSet<ProductBrand> ProductBrands => Set<ProductBrand>();
+    public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
-    public DbSet<ProductType> ProductTypes => Set<ProductType>();
+    public DbSet<ProductItemOrdered> ProductItemOrdereds => Set<ProductItemOrdered>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

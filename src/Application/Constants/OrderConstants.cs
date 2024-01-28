@@ -1,6 +1,6 @@
 namespace Sample2.Application.Common.Constants;
 
-public static class BrandConst
+public static class OrderConst
 {
     public static class Rules
     {
@@ -8,6 +8,6 @@ public static class BrandConst
 
     public static class ErrorMessages
     {
-        public const string BRAND_ID_DOES_NOT_EXISTS = "Product brand Id does not exists.";
+        public const string ORDER_ID_AT_LEAST_GREATER_THAN_0 = "Id at least greater than or equal to 0.";
     }
 }
