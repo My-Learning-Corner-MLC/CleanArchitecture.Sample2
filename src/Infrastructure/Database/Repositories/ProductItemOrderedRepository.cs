@@ -16,4 +16,12 @@ public class ProductItemOrderedRepository : GenericRepository<ProductItemOrdered
             cancellationToken: cancellationToken
         );
     }
+
+    public async Task<ProductItemOrdered?> GetByName(string name, CancellationToken cancellationToken)
+    {
+        return await GetBy(
+            predicateExpression: p => p.ProductName == name, 
+            cancellationToken: cancellationToken
+        );
+    }
 }

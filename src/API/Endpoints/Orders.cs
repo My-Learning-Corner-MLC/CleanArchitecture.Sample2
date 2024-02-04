@@ -4,6 +4,7 @@ using Sample2.API.Infrastructure;
 using Sample2.Application.Common.Constants;
 using Sample2.Application.Common.Exceptions;
 using Sample2.Application.OrderItems.Queries.GetOrderDetail;
+using Sample2.Application.Orders.Commands.CreateOrder;
 using Sample2.Application.Orders.Queries;
 
 namespace Sample1.API.Endpoints;
@@ -13,7 +14,8 @@ public class Orders : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this, "orders")
-            .MapGet(GetOrderDetail, "/{id}");
+            .MapGet(GetOrderDetail, "/{id}")
+            .MapPost(CreateOrder);
     }
 
     public async Task<Results<Ok<OrderDto>, NotFound, BadRequest>> GetOrderDetail(ISender sender, int id)
@@ -25,5 +27,10 @@ public class Orders : EndpointGroupBase
         var item = await sender.Send(new GetOrderDetailQuery { Id = id });
 
         return TypedResults.Ok(item);
+    }
+
+    public async Task<Results<Ok<int>, BadRequest>> CreateOrder(ISender sender, CreateOrderCommand command)
+    {
+        return TypedResults.Ok(await sender.Send(command));
     }
 }
