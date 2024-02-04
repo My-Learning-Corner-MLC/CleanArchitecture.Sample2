@@ -9,10 +9,11 @@ public class OrderItemRepository : GenericRepository<OrderItem>, IOrderItemRepos
     public OrderItemRepository(ApplicationDbContext context, ILogger<UnitOfWork> logger)
         : base(context, logger) { }
 
-    public async Task<OrderItem?> GetById(int orderItemId, CancellationToken cancellationToken)
+    public async Task<OrderItem?> GetById(int orderItemId, bool trackingChanges = false, CancellationToken cancellationToken = default)
     {
         return await GetBy(
-            predicateExpression: p => p.Id == orderItemId, 
+            predicateExpression: p => p.Id == orderItemId,
+            trackingChanges: trackingChanges,
             cancellationToken: cancellationToken
         );
     }

@@ -9,18 +9,20 @@ public class ProductItemOrderedRepository : GenericRepository<ProductItemOrdered
     public ProductItemOrderedRepository(ApplicationDbContext context, ILogger<UnitOfWork> logger)
         : base(context, logger) { }
 
-    public async Task<ProductItemOrdered?> GetById(int itemOrderedId, CancellationToken cancellationToken)
+    public async Task<ProductItemOrdered?> GetById(int itemOrderedId, bool trackingChanges = false, CancellationToken cancellationToken = default)
     {
         return await GetBy(
-            predicateExpression: p => p.Id == itemOrderedId, 
+            predicateExpression: p => p.Id == itemOrderedId,
+            trackingChanges: trackingChanges, 
             cancellationToken: cancellationToken
         );
     }
 
-    public async Task<ProductItemOrdered?> GetByName(string name, CancellationToken cancellationToken)
+    public async Task<ProductItemOrdered?> GetByName(string name, bool trackingChanges = false, CancellationToken cancellationToken = default)
     {
         return await GetBy(
-            predicateExpression: p => p.ProductName == name, 
+            predicateExpression: p => p.ProductName == name,
+            trackingChanges: trackingChanges,
             cancellationToken: cancellationToken
         );
     }

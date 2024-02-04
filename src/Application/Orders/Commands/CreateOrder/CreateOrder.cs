@@ -2,6 +2,7 @@ using MediatR;
 using Sample2.Application.Common.Constants;
 using Sample2.Application.Common.Exceptions;
 using Sample2.Application.Common.Interfaces;
+using Sample2.Application.Common.Models;
 using Sample2.Domain.Entities;
 
 namespace Sample2.Application.Orders.Commands.CreateOrder;
@@ -33,17 +34,17 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, int
     {
         var orderItems = request.OrderItems;
 
-        var allProduct = await _unitOfWork.ItemOrdereds.GetAll(size: 0, page: 0, cancellationToken: cancellationToken);
-        var productNotExists = orderItems.Select(oi => oi.ProductName).Except(allProduct.Select(p => p.ProductName)); 
-        if (productNotExists is not null && productNotExists.Any()) throw new ValidationException(
-            errorDescription: OrderConst.ErrorMessages.ORDER_CONTAINS_NOT_EXISTS_PRODUCT(string.Join( ", ", productNotExists))
+        var allItems = await _unitOfWork.ItemOrdereds.GetAll(new() {Size = 0, Page = 0, TrackingChanges = true, CancellationToken = cancellationToken});
+        var itemsNotExist = orderItems.Select(oi => oi.ProductName).Except(allItems.Select(p => p.ProductName)); 
+        if (itemsNotExist is not null && itemsNotExist.Any()) throw new ValidationException(
+            errorDescription: OrderConst.ErrorMessages.ORDER_CONTAINS_NOT_EXISTS_ITEMS(string.Join( ", ", itemsNotExist))
         );
 
         // Insert OrderItem
         var orderItemsEntity = new List<OrderItem>();
         foreach (var orderItem in orderItems)
         {
-            var itemOrdered = await _unitOfWork.ItemOrdereds.GetByName(orderItem.ProductName, cancellationToken: cancellationToken);
+            var itemOrdered = allItems.Where(p => p.ProductName == orderItem.ProductName).FirstOrDefault();
             orderItemsEntity.Add(new OrderItem
             {
                 ItemOrdered = itemOrdered,

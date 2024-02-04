@@ -22,7 +22,7 @@ public class GetOrderDetailQueryHandler : IRequestHandler<GetOrderDetailQuery, O
 
     public async Task<OrderDto> Handle(GetOrderDetailQuery request, CancellationToken cancellationToken)
     {
-        var order = await _unitOfWork.Orders.GetByIdWithOrderItem(request.Id, cancellationToken);
+        var order = await _unitOfWork.Orders.GetByIdWithOrderItem(request.Id, cancellationToken: cancellationToken);
 
         if (order is null) throw new NotFoundException(
             errorMessage: "Resource not found", 

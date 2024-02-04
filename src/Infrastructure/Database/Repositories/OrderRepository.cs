@@ -9,19 +9,21 @@ public class OrderRepository : GenericRepository<Order>, IOrderRepository
     public OrderRepository(ApplicationDbContext context, ILogger<UnitOfWork> logger)
         : base(context, logger) { }
 
-    public async Task<Order?> GetById(int orderId, CancellationToken cancellationToken)
+    public async Task<Order?> GetById(int orderId, bool trackingChanges = false,  CancellationToken cancellationToken = default)
     {
         return await GetBy(
             predicateExpression: p => p.Id == orderId,
+            trackingChanges: trackingChanges,
             cancellationToken: cancellationToken
         );
     }
 
-    public async Task<Order?> GetByIdWithOrderItem(int orderId, CancellationToken cancellationToken)
+    public async Task<Order?> GetByIdWithOrderItem(int orderId, bool trackingChanges = false, CancellationToken cancellationToken = default)
     {
         return await GetBy(
             predicateExpression: p => p.Id == orderId,
             includeProperties: "OrderItems,OrderItems.ItemOrdered",
+            trackingChanges: trackingChanges,
             cancellationToken: cancellationToken
         );
     }

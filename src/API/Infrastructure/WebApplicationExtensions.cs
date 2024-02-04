@@ -5,13 +5,13 @@ namespace Sample2.API.Infrastructure;
 
 public static class WebApplicationExtensions
 {
-    public static RouteGroupBuilder MapGroup(this WebApplication app, EndpointGroupBase group, string? customGroupName = default)
+    public static RouteGroupBuilder MapGroup(this WebApplication app, EndpointGroupBase group, string? groupName = default, string? tagName = default)
     {
-        var groupName = customGroupName ?? group.GetType().Name;
+        var routerGroupName = groupName ?? group.GetType().Name;
 
         return app
-            .MapGroup($"/api/{groupName}")
-            .WithTags(groupName)
+            .MapGroup($"/api/{routerGroupName}")
+            .WithTags(tagName ?? routerGroupName)
             .WithOpenApi();
     }
 

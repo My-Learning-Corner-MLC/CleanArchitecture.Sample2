@@ -4,6 +4,6 @@ namespace Sample2.Application.Common.Interfaces;
 
 public interface IProductItemOrderedRepository : IGenericRepository<ProductItemOrdered>
 {
-    Task <ProductItemOrdered?> GetById(int itemOrderedId, CancellationToken cancellationToken);
-    Task<ProductItemOrdered?> GetByName(string name, CancellationToken cancellationToken);
+    Task <ProductItemOrdered?> GetById(int itemOrderedId, bool trackingChanges = false, CancellationToken cancellationToken = default);
+    Task<ProductItemOrdered?> GetByName(string name, bool trackingChanges = false, CancellationToken cancellationToken = default);
 }
