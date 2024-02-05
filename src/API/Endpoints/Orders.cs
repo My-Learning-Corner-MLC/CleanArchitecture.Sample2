@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Sample2.API.Infrastructure;
 using Sample2.Application.Common.Constants;
 using Sample2.Application.Common.Exceptions;
+using Sample2.Application.Common.Models;
 using Sample2.Application.OrderItems.Queries.GetOrderDetail;
 using Sample2.Application.Orders.Commands.CreateOrder;
 using Sample2.Application.Orders.Commands.UpdateOrder;
 using Sample2.Application.Orders.Queries;
+using Sample2.Application.Orders.Queries.GetOrdersWithPagination;
 
 namespace Sample1.API.Endpoints;
 
@@ -17,6 +19,7 @@ public class Orders : EndpointGroupBase
         app.MapGroup(this, "orders")
             .MapGet(GetOrderDetail, "/{id}")
             .MapPost(CreateOrder)
+            .MapPost(GetOrdersWithPagination, "/query")     
             .MapPut(UpdateOrder, "/{id}");
     }
 
@@ -29,6 +32,11 @@ public class Orders : EndpointGroupBase
         var item = await sender.Send(new GetOrderDetailQuery { Id = id });
 
         return TypedResults.Ok(item);
+    }
+
+    public async Task<Results<Ok<PaginatedList<OrderBriefDto>>, BadRequest>> GetOrdersWithPagination(ISender sender, GetOrdersWithPaginationQuery query)
+    {        
+        return TypedResults.Ok(await sender.Send(query));
     }
 
     public async Task<Results<Ok<int>, BadRequest>> CreateOrder(ISender sender, CreateOrderCommand command)
