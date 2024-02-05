@@ -2,19 +2,19 @@ using FluentValidation;
 
 namespace Sample2.Application.Orders.Commands.UpdateOrder;
 
-public class UpdateTodoItemCommandValidator : AbstractValidator<UpdateOrderCommand>
+public class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
 {
-    public UpdateTodoItemCommandValidator()
+    public UpdateOrderCommandValidator()
     {
-        RuleFor(p => p.Id)
+        RuleFor(o => o.Id)
             .NotNull()
             .NotEmpty();
 
-        RuleFor(p => p.Status)
+        RuleFor(o => o.Status)
             .NotNull()
             .NotEmpty();
 
-        RuleFor(p => p.ShipToAddress)
+        RuleFor(o => o.ShipToAddress)
             .NotNull()
             .NotEmpty();
     }

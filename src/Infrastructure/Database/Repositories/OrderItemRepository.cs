@@ -12,7 +12,7 @@ public class OrderItemRepository : GenericRepository<OrderItem>, IOrderItemRepos
     public async Task<OrderItem?> GetById(int orderItemId, bool trackingChanges = false, CancellationToken cancellationToken = default)
     {
         return await GetBy(
-            predicateExpression: p => p.Id == orderItemId,
+            predicateExpression: oi => oi.Id == orderItemId,
             trackingChanges: trackingChanges,
             cancellationToken: cancellationToken
         );
