@@ -16,7 +16,7 @@ public record CreateOrderCommand : IRequest<int>
 
 public record OrderItemCommand
 {
-    public string ProductName { get; init; }
+    public int ProductId { get; init; }
     public decimal UnitPrice { get; init; }
     public int Units { get; init; }
 }
@@ -34,20 +34,19 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, int
     {
         var orderItems = request.OrderItems;
 
-        var allItems = await _unitOfWork.ItemOrdereds.GetAll(new() {Size = 0, Page = 0, TrackingChanges = true, CancellationToken = cancellationToken});
-        var itemsNotExist = orderItems.Select(oi => oi.ProductName).Except(allItems.Select(p => p.ProductName)); 
-        if (itemsNotExist is not null && itemsNotExist.Any()) throw new ValidationException(
-            errorDescription: OrderConst.ErrorMessages.ORDER_CONTAINS_NOT_EXISTS_ITEMS(string.Join( ", ", itemsNotExist))
+        var allProducts = await _unitOfWork.ItemOrdereds.GetAll(new() {Size = 0, Page = 0, CancellationToken = cancellationToken});
+        var productsNotExist = orderItems.Select(oi => oi.ProductId).Except(allProducts.Select(p => p.Id)); 
+        if (productsNotExist is not null && productsNotExist.Any()) throw new ValidationException(
+            errorDescription: OrderConst.ErrorMessages.ORDER_HAS_PRODUCTS_THAT_DO_NOT_EXIST(string.Join( ", ", productsNotExist))
         );
 
         // Insert OrderItem
         var orderItemsEntity = new List<OrderItem>();
         foreach (var orderItem in orderItems)
         {
-            var itemOrdered = allItems.Where(p => p.ProductName == orderItem.ProductName).FirstOrDefault();
             orderItemsEntity.Add(new OrderItem
             {
-                ItemOrdered = itemOrdered,
+                ItemOrderedId = orderItem.ProductId,
                 UnitPrice = orderItem.UnitPrice,
                 Units = orderItem.Units,
             });
