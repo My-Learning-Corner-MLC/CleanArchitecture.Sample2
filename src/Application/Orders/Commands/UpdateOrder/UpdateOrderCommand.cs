@@ -2,6 +2,7 @@ using MediatR;
 using Sample2.Application.Common.Constants;
 using Sample2.Application.Common.Exceptions;
 using Sample2.Application.Common.Interfaces;
+using Sample2.Domain.Constants;
 
 namespace Sample2.Application.Orders.Commands.UpdateOrder;
 
@@ -29,7 +30,7 @@ public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, int
             errorDescription: ExceptionConst.ErrorDescriptions.COULD_NOT_FOUND_ITEM_WITH_ID(request.Id)
         );
 
-        if (order.Status != OrderStatus.ORDERD && order.Status != OrderStatus.IN_TRANSIT) 
+        if (order.Status != OrderStatus.ORDERED && order.Status != OrderStatus.IN_TRANSIT) 
             throw new ValidationException(errorDescription: OrderConst.ErrorMessages.ORDER_COULD_NOT_UPDATE);
 
         order.Status = request.Status;

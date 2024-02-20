@@ -4,12 +4,12 @@ using Sample2.Domain.Entities;
 
 namespace Sample2.Infrastructure.Database.Repositories;
 
-public class ProductItemOrderedRepository : GenericRepository<ProductItemOrdered>, IProductItemOrderedRepository
+public class ProductItemReferenceRepository : GenericRepository<ProductItemReference>, IProductItemReferenceRepository
 {
-    public ProductItemOrderedRepository(ApplicationDbContext context, ILogger<UnitOfWork> logger)
+    public ProductItemReferenceRepository(ApplicationDbContext context, ILogger<UnitOfWork> logger)
         : base(context, logger) { }
 
-    public async Task<ProductItemOrdered?> GetById(int itemOrderedId, bool trackingChanges = false, CancellationToken cancellationToken = default)
+    public async Task<ProductItemReference?> GetById(int itemOrderedId, bool trackingChanges = false, CancellationToken cancellationToken = default)
     {
         return await GetBy(
             predicateExpression: p => p.Id == itemOrderedId,
@@ -18,10 +18,10 @@ public class ProductItemOrderedRepository : GenericRepository<ProductItemOrdered
         );
     }
 
-    public async Task<ProductItemOrdered?> GetByName(string name, bool trackingChanges = false, CancellationToken cancellationToken = default)
+    public async Task<ProductItemReference?> GetByName(string name, bool trackingChanges = false, CancellationToken cancellationToken = default)
     {
         return await GetBy(
-            predicateExpression: p => p.ProductName == name,
+            predicateExpression: p => p.Name == name,
             trackingChanges: trackingChanges,
             cancellationToken: cancellationToken
         );

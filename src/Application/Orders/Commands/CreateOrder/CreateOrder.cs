@@ -11,10 +11,10 @@ public record CreateOrderCommand : IRequest<int>
 {
     public string BuyerId { get; init; }
     public string ShipToAddress { get; init; }
-    public IList<OrderItemCommand> OrderItems { get; init; }
+    public IList<BasketItem> OrderItems { get; init; }
 }
 
-public record OrderItemCommand
+public record BasketItem
 {
     public int ProductId { get; init; }
     public decimal UnitPrice { get; init; }

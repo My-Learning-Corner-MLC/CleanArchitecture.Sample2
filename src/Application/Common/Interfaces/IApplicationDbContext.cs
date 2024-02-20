@@ -9,7 +9,7 @@ public interface IApplicationDbContext
 
     DbSet<OrderItem> OrderItems { get; }
 
-    DbSet<ProductItemOrdered> ProductItemOrdereds { get; }
+    DbSet<ProductItemReference> ProductItemReferences { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

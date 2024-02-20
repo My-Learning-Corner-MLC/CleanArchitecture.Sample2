@@ -10,7 +10,7 @@ public class OrderProfile : Profile
     {
         CreateMap<Order, OrderDto>();
         CreateMap<OrderItem, OrderItemDto>();
-        CreateMap<ProductItemOrdered, ProductOrderedDto>();
+        CreateMap<ProductItemReference, ProductOrderedDto>();
         CreateMap<Order, OrderBriefDto>();
     }
 }

@@ -13,7 +13,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
-    public DbSet<ProductItemOrdered> ProductItemOrdereds => Set<ProductItemOrdered>();
+    public DbSet<ProductItemReference> ProductItemReferences => Set<ProductItemReference>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

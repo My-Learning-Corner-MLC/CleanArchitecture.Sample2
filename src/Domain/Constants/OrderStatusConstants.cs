@@ -1,8 +1,8 @@
-namespace Sample2.Application.Common.Constants;
+namespace Sample2.Domain.Constants;
 
 public static class OrderStatus
 {
-    public const string ORDERD = "Ordered";
+    public const string ORDERED = "Ordered";
     public const string PACKED = "Packed";
     public const string IN_TRANSIT = "In Transit";
     public const string CANCEL = "Cancel";

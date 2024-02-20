@@ -4,10 +4,10 @@ using Sample2.Domain.Entities;
 
 namespace Sample2.Infrastructure.Database.Configurations;
 
-class ProductItemOrderedConfiguration : IEntityTypeConfiguration<ProductItemOrdered>
+class ProductItemReferenceConfiguration : IEntityTypeConfiguration<ProductItemReference>
 {
-    public void Configure(EntityTypeBuilder<ProductItemOrdered> builder)
+    public void Configure(EntityTypeBuilder<ProductItemReference> builder)
     {
-        builder.ToTable("ProductItemOrdered");
+        builder.ToTable("ProductItemReference");
     }
 }

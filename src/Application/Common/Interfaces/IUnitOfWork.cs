@@ -4,7 +4,7 @@ public interface IUnitOfWork
 {
     IOrderRepository Orders { get; }
     IOrderItemRepository OrderItems { get; }
-    IProductItemOrderedRepository ItemOrdereds { get; }
+    IProductItemReferenceRepository ItemOrdereds { get; }
 
     Task SaveChangeAsync(CancellationToken cancellationToken);
 }

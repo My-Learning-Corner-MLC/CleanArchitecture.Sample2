@@ -1,4 +1,5 @@
 using Sample2.Domain.Common;
+using Sample2.Domain.Constants;
 
 namespace Sample2.Domain.Entities;
 
@@ -7,7 +8,7 @@ public class Order : BaseAuditableEntity
     public string BuyerId { get; set; }
     public string ShipToAddress { get; set; }
     public IList<OrderItem> OrderItems { get; set; }
-    public string Status { get; set; } = "Ordered";
+    public string Status { get; set; } = OrderStatus.ORDERED;
 
     public decimal Total()
     {

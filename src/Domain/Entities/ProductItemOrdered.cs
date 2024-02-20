@@ -2,8 +2,8 @@
 
 namespace Sample2.Domain.Entities;
 
-public class ProductItemOrdered : BaseAuditableEntity
+public class ProductItemReference : BaseAuditableEntity
 {
-    public string ProductName { get; private set; }
+    public string Name { get; private set; }
     public string PictureUri { get; private set; }
 }
