@@ -1,5 +1,5 @@
 using MediatR;
-using Sample2.Application.Common.Constants;
+using Sample2.Application.Constants;
 using Sample2.Application.Common.Exceptions;
 using Sample2.Application.Common.Interfaces;
 using Sample2.Domain.Constants;

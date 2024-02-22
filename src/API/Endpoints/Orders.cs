@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Sample2.API.Infrastructure;
-using Sample2.Application.Common.Constants;
+using Sample2.Application.Constants;
 using Sample2.Application.Common.Exceptions;
 using Sample2.Application.Common.Models;
 using Sample2.Application.OrderItems.Queries.GetOrderDetail;

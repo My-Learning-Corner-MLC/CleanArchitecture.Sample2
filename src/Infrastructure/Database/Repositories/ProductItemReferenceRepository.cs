@@ -26,4 +26,14 @@ public class ProductItemReferenceRepository : GenericRepository<ProductItemRefer
             cancellationToken: cancellationToken
         );
     }
+
+    public async Task<IEnumerable<ProductItemReference>?> GetAllByIds(IList<int> productIds, bool trackingChanges = false, CancellationToken cancellationToken = default)
+    {
+        return await GetAll(new(){
+            FilterExpression = (p) => productIds.Contains(p.Id),
+            TrackingChanges = trackingChanges,
+            CancellationToken = cancellationToken
+        });
+    }
+
 }

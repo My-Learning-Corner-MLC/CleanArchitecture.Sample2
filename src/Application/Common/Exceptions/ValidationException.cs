@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using FluentValidation.Results;
-using Sample2.Application.Common.Constants;
+using Sample2.Application.Constants;
 
 namespace Sample2.Application.Common.Exceptions;
 

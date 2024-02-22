@@ -12,7 +12,7 @@ public class UnitOfWork : IUnitOfWork
 
     public IOrderRepository Orders { get; private set; }
     public IOrderItemRepository OrderItems { get; private set; }
-    public IProductItemReferenceRepository ItemOrdereds { get; private set; }
+    public IProductItemReferenceRepository ProductItemReferences { get; private set; }
 
     public UnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork> logger)
     {
@@ -22,7 +22,7 @@ public class UnitOfWork : IUnitOfWork
         // Inital repositories
         Orders = new OrderRepository(_context, _logger);
         OrderItems = new OrderItemRepository(_context, _logger);
-        ItemOrdereds = new ProductItemReferenceRepository(_context, _logger);
+        ProductItemReferences = new ProductItemReferenceRepository(_context, _logger);
     }
 
     public async Task SaveChangeAsync(CancellationToken cancellationToken)

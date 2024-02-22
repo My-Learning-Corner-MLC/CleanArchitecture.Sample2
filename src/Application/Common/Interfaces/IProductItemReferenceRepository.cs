@@ -6,4 +6,5 @@ public interface IProductItemReferenceRepository : IGenericRepository<ProductIte
 {
     Task <ProductItemReference?> GetById(int itemOrderedId, bool trackingChanges = false, CancellationToken cancellationToken = default);
     Task<ProductItemReference?> GetByName(string name, bool trackingChanges = false, CancellationToken cancellationToken = default);
+    Task<IEnumerable<ProductItemReference>?> GetAllByIds(IList<int> productIds, bool trackingChanges = false, CancellationToken cancellationToken = default);
 }

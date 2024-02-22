@@ -1,8 +1,7 @@
 using MediatR;
-using Sample2.Application.Common.Constants;
+using Sample2.Application.Constants;
 using Sample2.Application.Common.Exceptions;
 using Sample2.Application.Common.Interfaces;
-using Sample2.Application.Common.Models;
 using Sample2.Domain.Entities;
 
 namespace Sample2.Application.Orders.Commands.CreateOrder;
@@ -33,9 +32,14 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, int
     public async Task<int> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
         var orderItems = request.OrderItems;
+        var orderItemIds = orderItems.Select(oi => oi.ProductId).ToList();
 
-        var allProducts = await _unitOfWork.ItemOrdereds.GetAll(new() {Size = 0, Page = 0, CancellationToken = cancellationToken});
-        var productsNotExist = orderItems.Select(oi => oi.ProductId).Except(allProducts.Select(p => p.Id)); 
+        // TODO (services could communicate): Check if product exist in OrderDB first
+        // If not exist => Get the product through Product Service, and then Add the Product to OrderDB.
+        // If exist => Add Order and Order Item.
+
+        var existsProducts = await _unitOfWork.ProductItemReferences.GetAllByIds(orderItemIds, cancellationToken: cancellationToken);
+        var productsNotExist = orderItemIds.Except(existsProducts.Select(p => p.Id));
         if (productsNotExist is not null && productsNotExist.Any()) throw new ValidationException(
             errorDescription: OrderConst.ErrorMessages.ORDER_HAS_PRODUCTS_THAT_DO_NOT_EXIST(string.Join( ", ", productsNotExist))
         );
