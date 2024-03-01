@@ -38,10 +38,10 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, int
         // If not exist => Get the product through Product Service, and then Add the Product to OrderDB.
         // If exist => Add Order and Order Item.
 
-        var existsProducts = await _unitOfWork.ProductItemReferences.GetAllByIds(orderItemIds, cancellationToken: cancellationToken);
-        var productsNotExist = orderItemIds.Except(existsProducts.Select(p => p.Id));
-        if (productsNotExist is not null && productsNotExist.Any()) throw new ValidationException(
-            errorDescription: OrderConst.ErrorMessages.ORDER_HAS_PRODUCTS_THAT_DO_NOT_EXIST(string.Join( ", ", productsNotExist))
+        var existedProducts = await _unitOfWork.ProductItemReferences.GetAllByIds(orderItemIds, cancellationToken: cancellationToken);
+        var notExistedProducts = orderItemIds.Except(existedProducts.Select(p => p.Id));
+        if (notExistedProducts is not null && notExistedProducts.Any()) throw new ValidationException(
+            errorDescription: OrderConst.ErrorMessages.ORDER_HAS_PRODUCTS_THAT_DO_NOT_EXIST(string.Join( ", ", notExistedProducts))
         );
 
         // Insert OrderItem
