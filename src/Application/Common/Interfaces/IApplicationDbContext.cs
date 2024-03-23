@@ -5,11 +5,11 @@ namespace Sample2.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
-    DbSet<ProductItem> ProductItems { get; }
+    DbSet<Order> Orders { get; }
 
-    DbSet<ProductBrand> ProductBrands { get; }
+    DbSet<OrderItem> OrderItems { get; }
 
-    DbSet<ProductType> ProductTypes { get; }
+    DbSet<ProductItemReference> ProductItemReferences { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

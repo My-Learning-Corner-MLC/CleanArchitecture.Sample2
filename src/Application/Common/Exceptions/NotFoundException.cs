@@ -1,5 +1,5 @@
 using System.Net;
-using Sample2.Application.Common.Constants;
+using Sample2.Application.Constants;
 
 namespace Sample2.Application.Common.Exceptions;
 

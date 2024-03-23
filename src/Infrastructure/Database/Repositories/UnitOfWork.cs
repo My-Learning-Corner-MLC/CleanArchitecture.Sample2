@@ -10,9 +10,9 @@ public class UnitOfWork : IUnitOfWork
     private readonly ApplicationDbContext _context;
     private readonly ILogger<UnitOfWork> _logger;
 
-    public IProductRepository Products { get; private set; }
-    public IProductBrandRepository ProductBrands { get; private set; }
-    public IProductTypeRepository ProductTypes { get; private set; }
+    public IOrderRepository Orders { get; private set; }
+    public IOrderItemRepository OrderItems { get; private set; }
+    public IProductItemReferenceRepository ProductItemReferences { get; private set; }
 
     public UnitOfWork(ApplicationDbContext context, ILogger<UnitOfWork> logger)
     {
@@ -20,9 +20,9 @@ public class UnitOfWork : IUnitOfWork
         _logger = logger;
 
         // Inital repositories
-        Products = new ProductRepository(_context, _logger);
-        ProductBrands = new ProductBrandRepository(_context, _logger);
-        ProductTypes = new ProductTypeRepository(_context, _logger);
+        Orders = new OrderRepository(_context, _logger);
+        OrderItems = new OrderItemRepository(_context, _logger);
+        ProductItemReferences = new ProductItemReferenceRepository(_context, _logger);
     }
 
     public async Task SaveChangeAsync(CancellationToken cancellationToken)

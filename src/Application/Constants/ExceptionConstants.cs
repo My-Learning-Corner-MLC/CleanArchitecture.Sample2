@@ -1,4 +1,4 @@
-namespace Sample2.Application.Common.Constants;
+namespace Sample2.Application.Constants;
 
 public static class ExceptionConst
 {

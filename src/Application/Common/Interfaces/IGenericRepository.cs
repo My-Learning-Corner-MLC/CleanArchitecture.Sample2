@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Sample2.Application.Common.Models;
 using Sample2.Application.Constants;
 using Sample2.Domain.Common;
 
@@ -6,20 +7,13 @@ namespace Sample2.Application.Common.Interfaces;
 
 public interface IGenericRepository<TEntity> where TEntity : BaseAuditableEntity
 {
-    Task<IEnumerable<TEntity>> GetAll(
-        Expression<Func<TEntity, bool>>? filterExpression = default,
-        int page = RepositoryConstant.DEFAULT_PAGE_NUMBER,
-        int size = RepositoryConstant.DEFAULT_SIZE_PER_PAGE,
-        bool includeDeleted = false,
-        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderByFunc = default,
-        string? includeProperties = default,
-        CancellationToken cancellationToken = default
-    );
+    Task<IEnumerable<TEntity>> GetAll(GetAllParameters<TEntity> parameters);
 
     Task<TEntity?> GetBy(
         Expression<Func<TEntity, bool>> predicateExpression,
         bool includeDeleted = false,
         string? includeProperties = default,
+        bool trackingChanges = false,
         CancellationToken cancellationToken = default
     );
 
